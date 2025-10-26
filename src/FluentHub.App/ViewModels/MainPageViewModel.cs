@@ -1,5 +1,4 @@
 using FluentHub.Octokit.Queries.Users;
-using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.Helpers;
 using FluentHub.App.ViewModels.Repositories;
 using FluentHub.App.ViewModels.UserControls.Overview;

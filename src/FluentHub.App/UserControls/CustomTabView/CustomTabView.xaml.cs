@@ -1,10 +1,11 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using CommunityToolkit.WinUI.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
+using System.Collections.Generic;
 
 namespace FluentHub.App.UserControls.CustomTabView
 {
@@ -160,6 +161,32 @@ namespace FluentHub.App.UserControls.CustomTabView
 					}
 				});
 			}
+		}
+	}
+
+	// Extension method for finding descendant by name in the visual tree
+	public static class UIElementExtensions
+	{
+		public static DependencyObject? FindDescendant(this DependencyObject element, string name)
+		{
+			if (element == null) return null;
+
+			var queue = new Queue<DependencyObject>();
+			queue.Enqueue(element);
+
+			while (queue.Count > 0)
+			{
+				var current = queue.Dequeue();
+				int childCount = VisualTreeHelper.GetChildrenCount(current);
+				for (int i = 0; i < childCount; i++)
+				{
+					var child = VisualTreeHelper.GetChild(current, i);
+					if (child is FrameworkElement fe && fe.Name == name)
+						return child;
+					queue.Enqueue(child);
+				}
+			}
+			return null;
 		}
 	}
 }

@@ -63,24 +63,24 @@ namespace FluentHub.App.UserControls.PrimerControls
 
 				Context.TokenHeight = value switch
 				{
-					"small" =>16D,
-					"medium" =>20D,
-					"large" =>24D,
-					"xlarge" =>32D,
-					"extralarge" =>32D,
-					_ =>20D, // same as medium
+					"small" => 16D,
+					"medium" => 20D,
+					"large" => 24D,
+					"xlarge" => 32D,
+					"extralarge" => 32D,
+					_ => 20D, // same as medium
 				};
 
 				Context.CornerRadius = new(Context.TokenHeight/2);
 
 				Context.Margin = value switch
 				{
-					"small" => new(4,0,4,0),
-					"medium" => new(8,0,8,0),
-					"large" => new(8,0,8,0),
-					"xlarge" => new(16,0,16,0),
-					"extralarge" => new(16,0,16,0),
-					_ => new(8,0,8,0), // same as medium
+					"small" => new(4, 0, 4, 0),
+					"medium" => new(8, 0, 8, 0),
+					"large" => new(8, 0, 8, 0),
+					"xlarge" => new(16, 0, 16, 0),
+					"extralarge" => new(16, 0, 16, 0),
+					_ => new(8, 0, 8, 0), // same as medium
 				};
 			}
 		}
@@ -126,8 +126,8 @@ namespace FluentHub.App.UserControls.PrimerControls
 			public ObservableContext()
 			{
 				IsLightMode = (Application.Current.RequestedTheme == ApplicationTheme.Light);
-				TokenHeight =20D;
-				Margin = new(8,0,8,0);
+				TokenHeight = 20D;
+				Margin = new(8, 0, 8, 0);
 				CornerRadius = new(10);
 			}
 
