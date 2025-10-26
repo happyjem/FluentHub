@@ -6,4 +6,8 @@
 		<Platforms>x86;x64;ARM64</Platforms>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.2.250402" />
+	</ItemGroup>
+
 </Project>
