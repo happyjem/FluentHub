@@ -3,19 +3,19 @@
 	x:Class="FluentHub.App.Views.MainPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
 	xmlns:converters="using:FluentHub.App.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:dataitems="using:FluentHub.App.Data.Items"
 	xmlns:helpers="using:FluentHub.App.Helpers"
 	xmlns:i="using:Microsoft.Xaml.Interactivity"
-	xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:icore="using:CommunityToolkit.WinUI.Behaviors"
 	xmlns:models="using:FluentHub.App.Models"
 	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
 	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
 	xmlns:tabsuc="using:FluentHub.App.UserControls.CustomTabView"
-	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
 	KeyTipPlacementMode="Hidden"
 	KeyboardAcceleratorPlacementMode="Hidden"
@@ -24,44 +24,44 @@
 	<Page.KeyboardAccelerators>
 		<KeyboardAccelerator Key="T" Modifiers="Control">
 			<i:Interaction.Behaviors>
-				<icore:EventTriggerBehavior EventName="Invoked">
-					<icore:InvokeCommandAction Command="{x:Bind ViewModel.AddNewTabAcceleratorCommand}" />
-				</icore:EventTriggerBehavior>
+				<i:EventTriggerBehavior EventName="Invoked">
+					<i:InvokeCommandAction Command="{x:Bind ViewModel.AddNewTabAcceleratorCommand}" />
+				</i:EventTriggerBehavior>
 			</i:Interaction.Behaviors>
 		</KeyboardAccelerator>
 		<KeyboardAccelerator Key="W" Modifiers="Control">
 			<i:Interaction.Behaviors>
-				<icore:EventTriggerBehavior EventName="Invoked">
-					<icore:InvokeCommandAction Command="{x:Bind ViewModel.CloseTabAcceleratorCommand}" />
-				</icore:EventTriggerBehavior>
+				<i:EventTriggerBehavior EventName="Invoked">
+					<i:InvokeCommandAction Command="{x:Bind ViewModel.CloseTabAcceleratorCommand}" />
+				</i:EventTriggerBehavior>
 			</i:Interaction.Behaviors>
 		</KeyboardAccelerator>
 		<KeyboardAccelerator Key="Tab" Modifiers="Control">
 			<i:Interaction.Behaviors>
-				<icore:EventTriggerBehavior EventName="Invoked">
-					<icore:InvokeCommandAction Command="{x:Bind ViewModel.GoToNextTabAcceleratorCommand}" />
-				</icore:EventTriggerBehavior>
+				<i:EventTriggerBehavior EventName="Invoked">
+					<i:InvokeCommandAction Command="{x:Bind ViewModel.GoToNextTabAcceleratorCommand}" />
+				</i:EventTriggerBehavior>
 			</i:Interaction.Behaviors>
 		</KeyboardAccelerator>
 		<KeyboardAccelerator Key="Tab" Modifiers="Control,Shift">
 			<i:Interaction.Behaviors>
-				<icore:EventTriggerBehavior EventName="Invoked">
-					<icore:InvokeCommandAction Command="{x:Bind ViewModel.GoToNextTabAcceleratorCommand}" />
-				</icore:EventTriggerBehavior>
+				<i:EventTriggerBehavior EventName="Invoked">
+					<i:InvokeCommandAction Command="{x:Bind ViewModel.GoToNextTabAcceleratorCommand}" />
+				</i:EventTriggerBehavior>
 			</i:Interaction.Behaviors>
 		</KeyboardAccelerator>
 		<KeyboardAccelerator Key="Left" Modifiers="Menu">
 			<i:Interaction.Behaviors>
-				<icore:EventTriggerBehavior EventName="Invoked">
-					<icore:InvokeCommandAction Command="{x:Bind ViewModel.GoBackCommand}" />
-				</icore:EventTriggerBehavior>
+				<i:EventTriggerBehavior EventName="Invoked">
+					<i:InvokeCommandAction Command="{x:Bind ViewModel.GoBackCommand}" />
+				</i:EventTriggerBehavior>
 			</i:Interaction.Behaviors>
 		</KeyboardAccelerator>
 		<KeyboardAccelerator Key="Right" Modifiers="Menu">
 			<i:Interaction.Behaviors>
-				<icore:EventTriggerBehavior EventName="Invoked">
-					<icore:InvokeCommandAction Command="{x:Bind ViewModel.GoForwardCommand}" />
-				</icore:EventTriggerBehavior>
+				<i:EventTriggerBehavior EventName="Invoked">
+					<i:InvokeCommandAction Command="{x:Bind ViewModel.GoForwardCommand}" />
+				</i:EventTriggerBehavior>
 			</i:Interaction.Behaviors>
 		</KeyboardAccelerator>
 	</Page.KeyboardAccelerators>
