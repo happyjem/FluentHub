@@ -1,8 +1,10 @@
-using CommunityToolkit.WinUI.Notifications;
 using FluentHub.App.Utils;
 using System.Globalization;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
+using Microsoft.Windows.AppNotifications;
+using Microsoft.Windows.AppNotifications.Builder;
+
 
 namespace FluentHub.App.Services
 {
@@ -16,25 +18,22 @@ namespace FluentHub.App.Services
 		{
 			try
 			{
-				var builder = new ToastContentBuilder()
-					.SetToastScenario(ToastScenario.Default)
-					.AddToastActivationInfo(activationArgs, ToastActivationType.Foreground)
+				var builder = new AppNotificationBuilder()
 					.AddText(title.Truncate(50))
 					.AddText(text.Truncate(100));
 
-				/*builder.Content.Audio = new ToastAudio()
-				{
-					Src = new Uri("ms-appx:///Assets/notification-sound.mp3")
-				};*/
+				if (!string.IsNullOrEmpty(activationArgs))
+					builder.AddArgument("args", activationArgs); // 활성 인자
 
 				if (Uri.TryCreate(appLogoOverrideImage, UriKind.RelativeOrAbsolute, out var uri))
-					builder.AddAppLogoOverride(uri);
+					builder.SetAppLogoOverride(uri);
 				if (Uri.TryCreate(heroImage, UriKind.RelativeOrAbsolute, out uri))
-					builder.AddHeroImage(uri);
+					builder.SetHeroImage(uri);
 				if (Uri.TryCreate(inlineImage, UriKind.RelativeOrAbsolute, out uri))
-					builder.AddInlineImage(uri);
+					builder.SetInlineImage(uri);
 
-				ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(builder.Content.GetXml()));
+				var notification = builder.BuildNotification();
+				AppNotificationManager.Default.Show(notification);
 			}
 			catch (Exception e)
 			{
@@ -78,91 +77,44 @@ namespace FluentHub.App.Services
 
 		public string GetBadgeString()
 		{
-			BadgeGlyphContent content = new BadgeGlyphContent();
-			return content.GetContent();
+			// Returns a default badge XML string for a glyph (e.g., "activity")
+			return "<badge value=\"activity\"/>";
 		}
 
 		public void ShowToastNotificationWithProgress(string tag, string group, string title, string progressTitle, string leftText, string rightText, double progress)
 		{
-			// Define a tag (and optionally a group) to uniquely identify the notification, in order update the notification data later;
-			//string tag = "weekly-playlist";
-			//string group = "downloads";
-
-			// Construct the toast content with data bound fields
-			var content = new ToastContent()
-			{
-				/*Audio = new ToastAudio()
+			// Build App Notification with a progress bar (0.0 ~1.0)
+			var builder = new AppNotificationBuilder()
+				.AddText(title)
+				.AddProgressBar(new AppNotificationProgressBar
 				{
-					Src = new Uri("ms-appx:///Assets/notification-sound.mp3")
-				},*/
-				Visual = new ToastVisual()
-				{
-					BindingGeneric = new ToastBindingGeneric()
-					{
-						Children =
-						{
-							new AdaptiveText()
-							{
-								Text = title
-							},
+					Title = progressTitle,
+					Value = progress,
+					Status = leftText,
+					ValueStringOverride = rightText
+				});
 
-							new AdaptiveProgressBar()
-							{
-								Title = progressTitle,
-								Value = new BindableProgressBarValue("progress"),
-								Status = new BindableString("leftText"),
-								ValueStringOverride = new BindableString("rightText")
-							}
-						}
-					}
-				}
-			};
+			// Create notification and set identifiers for later updates
+			var notification = builder.BuildNotification();
+			notification.Tag = tag;
+			notification.Group = group;
 
-			// Generate the toast notification
-			var toast = new ToastNotification(content.GetXml())
-			{
-				// Assign the tag and group
-				Tag = tag,
-				Group = group,
-
-				// Assign initial NotificationData values
-				// Values must be of type string
-				Data = new NotificationData()
-			};
-
-			toast.Data.Values["progress"] = progress.ToString(new CultureInfo("en-US"));
-			toast.Data.Values["leftText"] = leftText;
-			toast.Data.Values["rightText"] = rightText;
-
-			// Provide sequence number to prevent out-of-order updates, or assign 0 to indicate "always update"
-			toast.Data.SequenceNumber = 1;
-
-			// Show the toast notification to the user
-			ToastNotificationManager.CreateToastNotifier().Show(toast);
+			// Show the toast notification
+			AppNotificationManager.Default.Show(notification);
 		}
 
 		public void UpdateToastWithProgress(string tag, string group, string leftText, string rightText, double progress, uint sequenceNumber)
 		{
-			// Construct a NotificationData object;
-			//string tag = "weekly-playlist";
-			//string group = "downloads";
-
-			// Create NotificationData and make sure the sequence number is incremented
-			// since last update, or assign 0 for updating regardless of order
-			var data = new NotificationData
+			// Update using AppNotificationProgressData (sequence enforces ordering)
+			var data = new AppNotificationProgressData(sequenceNumber)
 			{
-				SequenceNumber = sequenceNumber
+				Value = progress,
+				Status = leftText,
+				ValueStringOverride = rightText
 			};
 
-			// Assign new values
-			// Note that you only need to assign values that changed. In this example
-			// we don't assign progressStatus since we don't need to change it
-			data.Values["progress"] = progress.ToString(new CultureInfo("en-US"));
-			data.Values["leftText"] = leftText;
-			data.Values["rightText"] = rightText;
-
-			// Update the existing notification's data by using tag/group
-			ToastNotificationManager.CreateToastNotifier().Update(data, tag, group);
+			// Async update API; fire and forget here
+			_ = AppNotificationManager.Default.UpdateAsync(data, tag, group);
 		}
 	}
 }
