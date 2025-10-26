@@ -44,8 +44,8 @@ Your dashboard|Your repos|User profile page
 ### 1. Prerequisites
 
 - Windows 10 (Build 10.0.19041.0) or newer with Developer Mode enabled in the Windows Settings
-- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) with [Windows App SDK (version 10.0.22621.0)](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and .NET 8 SDK (.NET Desktop Development workload)
-
+- [Visual Studio 2026 insider](https://visualstudio.microsoft.com/vs/) with [Windows App SDK (version 10.0.26100.0)](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and .NET 9 SDK (.NET Desktop Development workload)
+- If possible, please use the dev branch.
 ```
 git clone https://github.com/FluentHub/FluentHub
 ```
