@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.WinUI.UI;
-using CommunityToolkit.WinUI;
-using CommunityToolkit.WinUI.UI.Animations;
-using CommunityToolkit.WinUI.UI.Animations.Expressions;
+﻿using CommunityToolkit.WinUI;
 using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -9,6 +6,7 @@ using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Shapes;
 using System.Numerics;
 using Windows.UI;
+using CommunityToolkit.WinUI.Animations.Expressions;
 
 namespace FluentHub.App.UserControls
 {

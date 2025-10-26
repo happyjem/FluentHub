@@ -13,7 +13,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Permissions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using CommunityToolkit.WinUI.UI;
 
 namespace FluentHub.App.UserControls.PrimerControls
 {

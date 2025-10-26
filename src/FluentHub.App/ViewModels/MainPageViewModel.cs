@@ -1,4 +1,3 @@
-using CommunityToolkit.WinUI.UI;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.Helpers;
